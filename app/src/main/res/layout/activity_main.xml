@@ -11,11 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:paddingTop="10dp"
+        >
         <Button
             android:id="@+id/btnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_700"
             android:text="Click"/>
     </LinearLayout>
 </layout>
