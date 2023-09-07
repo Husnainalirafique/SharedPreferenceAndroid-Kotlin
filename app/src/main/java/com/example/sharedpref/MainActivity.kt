@@ -1,14 +1,11 @@
 package com.example.sharedpref
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.util.Log
-import android.view.Display.Mode
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.example.sharedpref.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,21 +13,29 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.btnClick.setOnClickListener {
-            settingSharedPref()
+        setThemeSwitch()
+        getThemeSwitch()
+    }
+
+    private fun setThemeSwitch() {
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            when (isChecked) {
+                true -> binding.mainLayout.setBackgroundColor(resources.getColor(R.color.Blue, null))
+                else -> {
+                    setTheme(R.style.Theme_SharedPref)
+                    recreate()
+                }
+            }
+
+            getSharedPreferences("key", MODE_PRIVATE).edit().apply {
+                putBoolean("theme2", isChecked)
+            }.apply()
         }
-        Log.d(tag, "${gettingSharedPref()}")
     }
 
-    private fun settingSharedPref() {
-        getSharedPreferences("key", MODE_PRIVATE).edit().apply {
-            putBoolean("login", true)
-        }.apply()
-    }
-
-    private fun gettingSharedPref(): Boolean {
-        return getSharedPreferences("key", MODE_PRIVATE).getBoolean("login", false)
-
+    private fun getThemeSwitch() {
+        val id = getSharedPreferences("key", MODE_PRIVATE).getBoolean("theme2", false)
+        binding.switchTheme.isChecked = id
     }
 
     override fun onDestroy() {

@@ -8,16 +8,17 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MainActivity"
+        android:gravity="center"
         android:paddingTop="10dp">
-        <Button
-            android:id="@+id/btnClick"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchTheme"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/teal_700"
-            android:text="Click"/>
+            android:text="Theme"/>
     </LinearLayout>
 </layout>
